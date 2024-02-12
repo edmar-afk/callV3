@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			http-equiv="X-UA-Compatible"
+			content="IE=edge" />
+		<title>PeerChat</title>
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+			integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer" />
+	</head>
+	<body class="bg-gray-900">
+		<div
+			class="entry-modal flex flex-col justify-center"
+			id="entry-modal">
+			<p class="text-white text-5xl text-center py-12 mt-32">Create or Join Meeting</p>
+			<input
+				type="number"
+				id="room-input"
+				class="py-2 mx-auto mb-12 w-[300px] border-2 border-green-400 rounded-xl ps-4"
+				placeholder="Enter Room ID" />
+			<div class="mx-auto">
+				<button
+					onclick="createRoom(1)"
+					class="bg-transparent border-2 text-cyan-400 border-cyan-400 p-3 rounded-xl font-bold hover:bg-cyan-400 hover:text-gray-900 hover:scale-110 hover:shadow-md hover:shadow-cyan-400 mx-1 hover:mx-4 duration-300">
+					<i class="fa-solid fa-door-open mr-1"></i>
+					Create Room
+				</button>
+				<button
+					onclick="joinRoom(2)"
+					class="bg-transparent border-2 border-green-400 p-3 rounded-xl font-bold text-green-400 hover:bg-green-400 hover:text-gray-900 hover:shadow-md hover:shadow-green-400 hover:scale-110 mx-1 hover:mx-4 duration-300">
+					<i class="fa-solid fa-right-to-bracket mr-1"></i>
+					Join Room
+				</button>
+			</div>
+		</div>
+
+		<script>
+			function createRoom(Create) {
+				const createRoomInput = document.getElementById("room-input").value.trim();
+				const PRE = "JHCSC";
+				const SUF = "MEET";
+
+				if (!createRoomInput) {
+					alert("Please enter room number");
+					return;
+				}
+				let createRoom_id = PRE + createRoomInput + SUF;
+				window.open(`call.html?type=${Create}&room=${createRoom_id}`, "_blank", "width=1000,height:1000");
+			}
+
+			function joinRoom(Join) {
+				const joinRoomInput = document.getElementById("room-input").value.trim();
+				const PRE = "JHCSC";
+				const SUF = "MEET";
+
+				if (!joinRoomInput) {
+					alert("Please enter room number");
+					return;
+				}
+				let joinRoom_id = PRE + joinRoomInput + SUF;
+				window.open(`call.html?type=${Join}&room=${joinRoom_id}`, "_blank", "width=1000,height:1000");
+			}
+		</script>
+	</body>
+</html>

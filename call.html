@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call - {peerId}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+</head>
+<body class="overflow-y-hidden">
+
+    <p id="notification" class="text-orange-400 bg-transparent border-2 px-3 border-orange-400 rounded-xl p-4 max-w-md fixed top-10 left-4 animate-pulse font-bold" hidden></p>
+    <p id="success-notification" class="text-orange-400 bg-transparent border-2 px-3 border-orange-400 rounded-xl p-4 max-w-md fixed top-10 left-4 animate-pulse font-bold" hidden></p>
+    <div id="videos">
+        <video class="video-player w-screen h-screen bg-green-400" id="remote-video" autoplay playsinline></video>
+        <div class="absolute top-10 right-10 top-10 right-10">
+            <div id="statusContainer" role="status" class="absolute flex flex-col items-center -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
+                <svg aria-hidden="true" class="w-4 h-4 text-gray-200 animate-spin fill-green-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill"/></svg>
+                <span class="text-white mt-2 text-[8px]">Waiting...</span>
+            </div>
+            <i class="fa-solid fa-volume-high text-black text-xs absolute top-[-10px] left-[-10px] bg-green-400 p-1 rounded-xl animate-pulse" style="display: none;"></i>
+            <i class="fa-solid fa-volume-xmark text-black text-xs absolute top-[-10px] left-[-10px] bg-red-400 p-1 rounded-xl animate-pulse"></i>
+            <video class="video-player z-10 border-2 border-white rounded-xl  w-32 h-32" id="local-video" autoplay playsinline></video>
+        </div>
+    </div>
+
+    <div id="controls">
+
+        <div class="control-container bg-white hover:scale-125 duration-300" id="camera-btn" data-tooltip-target="tooltip-camera">
+            <i class="fa-solid fa-camera text-black text-md" id="camera-icon"></i>
+            <div id="tooltip-camera" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-[10px] text-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                Open Camera
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+        </div>
+
+        <div class="control-container hover:scale-125 bg-white duration-300" id="mic-btn" data-tooltip-target="tooltip-mic">
+            <i class="fa-solid fa-microphone text-black text-md" id="mic-icon"></i>
+            <div id="tooltip-mic" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-[10px] text-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                Open Microphone
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+        </div>
+
+        <button onclick="leave()" class="hover:scale-125 duration-300" data-tooltip-target="tooltip-end">
+            <div class="control-container" id="leave-btn">
+               <i class="fa-solid fa-phone text-white text-md"></i>
+               <div id="tooltip-end" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-[10px] text-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                End Call
+               <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+            </div>
+        </button>
+
+        
+        <div class="meet-controls-bar bg-green-400 rounded-full px-5 flex hover:scale-125 duration-300" data-tooltip-target="tooltip-shareScreen">
+            <button onclick="startScreenShare()"><i class="fa-solid fa-display"></i></button>
+             <div id="tooltip-shareScreen" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-[10px] text-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                Share Screen
+             <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+    </div> 
+
+    <script src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
