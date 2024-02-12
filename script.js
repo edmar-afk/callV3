@@ -154,37 +154,37 @@ function leave() {
 	window.close();
 }
 
-const toggleCamera = () => {
-	const cameraBtn = document.getElementById("camera-btn");
-	const cameraIcon = document.getElementById("camera-icon");
-	const statusContainer = document.getElementById("statusContainer");
+// const toggleCamera = () => {
+// 	const cameraBtn = document.getElementById("camera-btn");
+// 	const cameraIcon = document.getElementById("camera-icon");
+// 	const statusContainer = document.getElementById("statusContainer");
 
-	try {
-		if (isCameraOn) {
-			// Turn off the camera
-			localSteam.getTracks().forEach((track) => track.stop());
-			document.getElementById("local-video").srcObject = null;
-			isCameraOn = false;
+// 	try {
+// 		if (isCameraOn) {
+// 			// Turn off the camera
+// 			localSteam.getTracks().forEach((track) => track.stop());
+// 			document.getElementById("local-video").srcObject = null;
+// 			isCameraOn = false;
 
-			statusContainer.style.display = "flex";
-		} else {
-			// Turn on the camera
-			localSteam = navigator.mediaDevices.getUserMedia({ video: true });
-			document.getElementById("local-video").srcObject = localSteam;
-			isCameraOn = true;
+// 			statusContainer.style.display = "flex";
+// 		} else {
+// 			// Turn on the camera
+// 			localSteam = navigator.mediaDevices.getUserMedia({ video: true });
+// 			document.getElementById("local-video").srcObject = localSteam;
+// 			isCameraOn = true;
 
-			statusContainer.style.display = "none";
-		}
+// 			statusContainer.style.display = "none";
+// 		}
 
-		cameraBtn.classList.toggle("bg-white", !isCameraOn);
-		cameraBtn.classList.toggle("bg-red-400", isCameraOn);
+// 		cameraBtn.classList.toggle("bg-white", !isCameraOn);
+// 		cameraBtn.classList.toggle("bg-red-400", isCameraOn);
 
-		cameraIcon.classList.toggle("text-black", !isCameraOn);
-		cameraIcon.classList.toggle("text-white", isCameraOn);
-	} catch (error) {
-		alert("Error accessing camera:", error);
-	}
-};
+// 		cameraIcon.classList.toggle("text-black", !isCameraOn);
+// 		cameraIcon.classList.toggle("text-white", isCameraOn);
+// 	} catch (error) {
+// 		alert("Error accessing camera:", error);
+// 	}
+// };
 
 function toggleMicrophone() {
 	if (isMicActive) {
