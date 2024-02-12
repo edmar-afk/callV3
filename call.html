@@ -15,7 +15,6 @@
     <div id="videos">
         <video class="video-player w-screen h-screen bg-green-400" id="remote-video" autoplay playsinline></video>
         <div class="absolute top-10 right-10 top-10 right-10">
-           
             <video class="video-player z-10 border-2 border-white rounded-xl  w-32 h-32" id="local-video" autoplay playsinline></video>
         </div>
     </div>
@@ -25,6 +24,14 @@
         <div class="control-container bg-white hover:scale-125 duration-300" id="camera-btn" data-tooltip-target="tooltip-camera">
             <i class="fa-solid fa-camera text-black text-md" id="camera-icon"></i>
             <div id="tooltip-camera" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-[10px] text-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                open camera camera
+                <div class="tooltip-arrow" data-popper-arrow></div>
+            </div>
+        </div>
+
+         <div class="control-container bg-white hover:scale-125 duration-300" id="switch-btn" data-tooltip-target="tooltip-switch">
+            <i class="fa-solid fa-camera text-black text-md" id="camera-icon"></i>
+            <div id="tooltip-switch" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-[10px] text-center font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
                 switch camera
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
@@ -61,12 +68,13 @@
     <script src="script.js"></script>
 
     <script>
-    const cameraBtn = document.getElementById('camera-btn');
-    const cameraIcon = document.getElementById('camera-icon');
+    const switchBtn = document.getElementById('switch-btn');
+    const localVideo = document.getElementById('local-video');
+    const remoteVideo = document.getElementById('remote-video');
 
     let isFrontCamera = true;
 
-    cameraBtn.addEventListener('click', async () => {
+    switchBtn.addEventListener('click', async () => {
         try {
             const devices = await navigator.mediaDevices.enumerateDevices();
             const videoDevices = devices.filter(device => device.kind === 'videoinput');
@@ -83,16 +91,7 @@
 
             if (videoTracks.length > 0) {
                 videoTracks[0].enabled = true;
-                const videoElement = document.createElement('video');
-                videoElement.srcObject = stream;
-                videoElement.autoplay = true;
-
-                const existingVideoElement = document.querySelector('video');
-                if (existingVideoElement) {
-                    existingVideoElement.replaceWith(videoElement);
-                } else {
-                    document.body.appendChild(videoElement);
-                }
+                localVideo.srcObject = stream;
             }
         } catch (error) {
             console.error('Error accessing camera:', error);
